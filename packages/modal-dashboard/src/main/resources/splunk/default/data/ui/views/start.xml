@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<view template="modal-dashboard:/templates/start.html" type="html">
+	<label>Start</label>
+</view>
