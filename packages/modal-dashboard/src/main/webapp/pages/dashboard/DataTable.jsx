@@ -10,14 +10,33 @@ const StyledFlagButtonContainer = styled.div`
     text-align: right;
 `;
 
+const regions = {
+    NW: ['CA', 'WA', 'OR'],
+    SW: ['NM', 'NV', 'AZ'],
+    NE: ['NY', 'MA'],
+    SE: ['FL', 'AL'],
+};
+
 export default class DataTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
             // We use local mock data here. In the real application, the data may come from Splunk.
             headers: [
-                { label: 'Name', key: 'name', align: 'left', width: 150, minWidth: 80 },
-                { label: 'Score', key: 'score', align: 'left', width: 120, minWidth: 40 },
+                {
+                    label: 'Name',
+                    key: 'name',
+                    align: 'left',
+                    width: 150,
+                    minWidth: 80,
+                },
+                {
+                    label: 'Score',
+                    key: 'score',
+                    align: 'left',
+                    width: 120,
+                    minWidth: 40,
+                },
                 {
                     label: 'State',
                     key: 'state',
@@ -25,7 +44,13 @@ export default class DataTable extends Component {
                     width: 140,
                     minWidth: 40,
                 },
-                { label: 'Flag', key: 'flag', align: 'left', width: 100, minWidth: 40 },
+                {
+                    label: 'Flag',
+                    key: 'flag',
+                    align: 'left',
+                    width: 100,
+                    minWidth: 40,
+                },
             ],
             data: [
                 {
@@ -40,7 +65,7 @@ export default class DataTable extends Component {
                 {
                     name: 'Amelia',
                     score: 10,
-                    state: 'Ma',
+                    state: 'MA',
                     email: 'Dexter.Trantow57@hotmail.com',
                     flag: 'none',
                     selected: false,
@@ -140,7 +165,7 @@ export default class DataTable extends Component {
     }
 
     handleRequestMoveColumn = ({ fromIndex, toIndex }) => {
-        this.setState(state => {
+        this.setState((state) => {
             const headers = cloneDeep(state.headers);
             const headerToMove = headers[fromIndex];
 
@@ -155,7 +180,7 @@ export default class DataTable extends Component {
     };
 
     handleSort = (e, { sortKey }) => {
-        this.setState(state => {
+        this.setState((state) => {
             const prevSortKey = state.sortKey;
             const prevSortDir = prevSortKey === sortKey ? state.sortDir : 'none';
             const nextSortDir = prevSortDir === 'asc' ? 'desc' : 'asc';
@@ -167,7 +192,7 @@ export default class DataTable extends Component {
     };
 
     handleResizeColumn = (event, { columnId, index, width }) => {
-        this.setState(state => {
+        this.setState((state) => {
             const headers = cloneDeep(state.headers);
 
             // min and max widths can be controlled in the callback.
@@ -182,7 +207,7 @@ export default class DataTable extends Component {
     };
 
     handleToggle = (event, { email }) => {
-        this.setState(state => {
+        this.setState((state) => {
             const data = cloneDeep(state.data);
 
             const selectedRow = find(data, { email });
@@ -194,12 +219,12 @@ export default class DataTable extends Component {
     };
 
     handleToggleAll = () => {
-        this.setState(state => {
+        this.setState((state) => {
             const data = cloneDeep(state.data);
             const selected = this.rowSelectionState(data) !== 'all';
 
             return {
-                data: data.map(row => ({
+                data: data.map((row) => ({
                     ...row,
                     selected: row.disabled ? false : selected,
                 })),
@@ -208,10 +233,10 @@ export default class DataTable extends Component {
     };
 
     handleFlag = (event, { email }) => {
-        this.setState(state => {
+        this.setState((state) => {
             const data = cloneDeep(state.data);
 
-            data.forEach(d => {
+            data.forEach((d) => {
                 if (d.selected) {
                     d.flag = 'flag';
                 } else {
@@ -245,6 +270,15 @@ export default class DataTable extends Component {
 
     render() {
         const { headers, data, sortKey, sortDir } = this.state;
+        const { region } = this.props;
+
+        const filteredData = data.filter((record) => {
+            if (regions[region]?.includes(record.state)) {
+                return true;
+            }
+
+            return false;
+        });
 
         return (
             <div>
@@ -253,13 +287,13 @@ export default class DataTable extends Component {
                     onRequestMoveColumn={this.handleRequestMoveColumn}
                     onRequestResizeColumn={this.handleResizeColumn}
                     onRequestToggleAllRows={this.handleToggleAll}
-                    rowSelection={this.rowSelectionState(data)}
+                    rowSelection={this.rowSelectionState(filteredData)}
                     headType="fixed"
                     innerStyle={{ maxHeight: 198 }}
                     rowExpansion="single"
                 >
                     <Table.Head>
-                        {headers.map(header => (
+                        {headers.map((header) => (
                             <Table.HeadCell
                                 key={header.key}
                                 columnId={header.key}
@@ -274,7 +308,7 @@ export default class DataTable extends Component {
                         ))}
                     </Table.Head>
                     <Table.Body>
-                        {orderBy(data, sortKey, sortDir).map(row => (
+                        {orderBy(filteredData, sortKey, sortDir).map((row) => (
                             <Table.Row
                                 key={row.email}
                                 expansionRow={this.getExpansionRow(row)}
@@ -283,7 +317,7 @@ export default class DataTable extends Component {
                                 selected={row.selected}
                                 disabled={row.disabled}
                             >
-                                {headers.map(header => (
+                                {headers.map((header) => (
                                     <Table.Cell key={row[header.key]} align={header.align}>
                                         {row[header.key]}
                                     </Table.Cell>

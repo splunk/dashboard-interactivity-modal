@@ -9,13 +9,13 @@ import DataModal from './DataModal';
 
 const DashboardExample = () => {
     const [openModal, setOpenModal] = useState(false);
-    const [title, setTitle] = useState('Default title');
+    const [region, selectRegion] = useState('');
 
     const handleDashboardEvent = ({ type, targetId, originalEvent }) => {
         const [, vizId] = targetId.split('_');
         if (type === 'ellipse.click' || type === 'value.click') {
             originalEvent.preventDefault();
-            setTitle(vizId);
+            selectRegion(vizId);
             setOpenModal(!openModal);
         }
     };
@@ -29,7 +29,7 @@ const DashboardExample = () => {
             <DashboardContextProvider>
                 <DataModal
                     open={openModal}
-                    modalTitle={title}
+                    region={region}
                     handleRequestClose={handleRequestClose}
                 />
                 <DashboardCore
