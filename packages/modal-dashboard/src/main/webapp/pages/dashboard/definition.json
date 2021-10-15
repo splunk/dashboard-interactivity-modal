@@ -430,7 +430,7 @@
 				"sizeType": "contain",
 				"x": 0,
 				"y": 0,
-				"src": "https://github.com/splunk/customized-app-conf19/blob/master/public/dashboard-background.png?raw=true"
+				"src": "https://github.com/splunk/dashboardTutorial2/blob/main/packages/modal-dashboard/src/main/webapp/pages/dashboard/dashboard-background.png?raw=true"
 			}
 		},
 		"structure": [

@@ -1,3 +1,6 @@
+![](packages/modal-dashboard/src/main/webapp/pages/dashboard/final_dashboard.png)
+
+
 # License Notice
 Copyright 2021 Splunk, Inc.
 
