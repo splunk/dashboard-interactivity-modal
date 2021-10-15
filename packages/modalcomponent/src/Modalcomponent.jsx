@@ -1,45 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Button from '@splunk/react-ui/Button';
-import { StyledContainer, StyledGreeting } from './ModalcomponentStyles';
+import React from 'react';
+import Modal from '@splunk/react-ui/Modal';
 
-class Modalcomponent extends Component {
-    static propTypes = {
-        name: PropTypes.string,
-    };
+import DataTable from './DataTable';
 
-    static defaultProps = {
-        name: 'User',
-    };
+const Modalcomponent = ({ handleRequestClose, region, open }) => {
+    return (
+        <Modal onRequestClose={handleRequestClose} open={open} style={{ width: '640px' }}>
+            <Modal.Header title={`${region} region cheaters`} onRequestClose={handleRequestClose} />
+            <Modal.Body style={{ padding: 10 }}>
+                <DataTable region={region} />
+            </Modal.Body>
+        </Modal>
+    );
+};
 
-    constructor(props) {
-        super(props);
-        this.state = { counter: 0 };
-    }
 
-    render() {
-        const { name } = this.props;
-        const { counter } = this.state;
-
-        const message =
-            counter === 0
-                ? 'You should try clicking the button.'
-                : `You've clicked the button ${counter} time${counter > 1 ? 's' : ''}.`;
-
-        return (
-            <StyledContainer>
-                <StyledGreeting>Hello, {name}!</StyledGreeting>
-                <div>{message}</div>
-                <Button
-                    label="Click here"
-                    appearance="primary"
-                    onClick={() => {
-                        this.setState({ counter: counter + 1 });
-                    }}
-                />
-            </StyledContainer>
-        );
-    }
-}
 
 export default Modalcomponent;
