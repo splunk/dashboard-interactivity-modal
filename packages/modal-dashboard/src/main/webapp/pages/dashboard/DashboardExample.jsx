@@ -4,8 +4,8 @@ import DashboardCore from '@splunk/dashboard-core';
 import { DashboardContextProvider } from '@splunk/dashboard-context';
 import EnterprisePreset from '@splunk/dashboard-presets/EnterprisePreset';
 import SplunkThemeProvider from '@splunk/themes/SplunkThemeProvider';
-import definition from './definition.json';
 import Modalcomponent from '@splunk/modalcomponent';
+import definition from './definition.json';
 
 const DashboardExample = () => {
     const [openModal, setOpenModal] = useState(false);
