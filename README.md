@@ -2,6 +2,8 @@
 
 In the second installment of the Splunk Dashboard tutorials, we visit an old .conf19 example showcasing event handler behavior. In this tutorial we cover how to add a click event which opens a modal component showing a table of data. This is useful for usecases where dashboard consumers would like to drilldown to more information without taking up main dashboard canvas real estate or creating another dashboard entirely. 
 
+Be sure to checkout tutorial.md for a step by step guide on how to make this project!
+
 ![](packages/modal-dashboard/src/main/webapp/pages/dashboard/final_dashboard.png)
 
 
