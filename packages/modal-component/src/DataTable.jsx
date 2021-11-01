@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { cloneDeep, find, orderBy } from 'lodash';
+import T from 'prop-types';
 import styled from 'styled-components';
 import Button from '@splunk/react-ui/Button';
 import DL from '@splunk/react-ui/DefinitionList';
 import Table from '@splunk/react-ui/Table';
+
+import { ExpansionRowCellStyle, TableInnerStyle } from './DataTableStyles';
 
 const StyledFlagButtonContainer = styled.div`
     margin-top: 20px;
@@ -152,7 +155,10 @@ export default class DataTable extends Component {
     getExpansionRow(row) {
         return (
             <Table.Row key={`${row.email}-expansion`}>
-                <Table.Cell style={{ borderTop: 'none' }} colSpan={this.state.headers.length}>
+                <Table.Cell
+                    style={ExpansionRowCellStyle}
+                    colSpan={this.state.headers.length}
+                >
                     <DL>
                         <DL.Term>Name</DL.Term>
                         <DL.Description>{row.name}</DL.Description>
@@ -172,17 +178,19 @@ export default class DataTable extends Component {
             const insertionIndex = toIndex < fromIndex ? toIndex : toIndex + 1;
             headers.splice(insertionIndex, 0, headerToMove);
 
-            const removalIndex = toIndex < fromIndex ? fromIndex + 1 : fromIndex;
+            const removalIndex =
+                toIndex < fromIndex ? fromIndex + 1 : fromIndex;
             headers.splice(removalIndex, 1);
 
             return { headers };
         });
     };
 
-    handleSort = (e, { sortKey }) => {
+    handleSort = ({ sortKey }) => {
         this.setState((state) => {
             const prevSortKey = state.sortKey;
-            const prevSortDir = prevSortKey === sortKey ? state.sortDir : 'none';
+            const prevSortDir =
+                prevSortKey === sortKey ? state.sortDir : 'none';
             const nextSortDir = prevSortDir === 'asc' ? 'desc' : 'asc';
             return {
                 sortKey,
@@ -191,7 +199,7 @@ export default class DataTable extends Component {
         });
     };
 
-    handleResizeColumn = (event, { columnId, index, width }) => {
+    handleResizeColumn = ({ columnId, index, width }) => {
         this.setState((state) => {
             const headers = cloneDeep(state.headers);
 
@@ -232,16 +240,10 @@ export default class DataTable extends Component {
         });
     };
 
-    handleFlag = (event, { email }) => {
+    handleFlag = () => {
         this.setState((state) => {
-            const data = cloneDeep(state.data);
-
-            data.forEach((d) => {
-                if (d.selected) {
-                    d.flag = 'flag';
-                } else {
-                    d.flag = 'none';
-                }
+            const data = state.data.map((d) => {
+                return { ...d, flag: d.selected ? 'flag' : 'none' };
             });
 
             return { data };
@@ -289,7 +291,7 @@ export default class DataTable extends Component {
                     onRequestToggleAllRows={this.handleToggleAll}
                     rowSelection={this.rowSelectionState(filteredData)}
                     headType="fixed"
-                    innerStyle={{ maxHeight: 198 }}
+                    innerStyle={TableInnerStyle}
                     rowExpansion="single"
                 >
                     <Table.Head>
@@ -301,7 +303,9 @@ export default class DataTable extends Component {
                                 width={header.width}
                                 onSort={this.handleSort}
                                 sortKey={header.key}
-                                sortDir={header.key === sortKey ? sortDir : 'none'}
+                                sortDir={
+                                    header.key === sortKey ? sortDir : 'none'
+                                }
                             >
                                 {header.label}
                             </Table.HeadCell>
@@ -318,7 +322,10 @@ export default class DataTable extends Component {
                                 disabled={row.disabled}
                             >
                                 {headers.map((header) => (
-                                    <Table.Cell key={row[header.key]} align={header.align}>
+                                    <Table.Cell
+                                        key={row[header.key]}
+                                        align={header.align}
+                                    >
                                         {row[header.key]}
                                     </Table.Cell>
                                 ))}
@@ -327,9 +334,17 @@ export default class DataTable extends Component {
                     </Table.Body>
                 </Table>
                 <StyledFlagButtonContainer>
-                    <Button appearance="primary" onClick={this.handleFlag} label="Flag" />
+                    <Button
+                        appearance="primary"
+                        onClick={this.handleFlag}
+                        label="Flag"
+                    />
                 </StyledFlagButtonContainer>
             </div>
         );
     }
 }
+
+DataTable.propTypes = {
+    region: T.string,
+};
