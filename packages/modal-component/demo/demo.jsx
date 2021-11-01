@@ -4,14 +4,14 @@ import { render } from 'react-dom';
 import { SplunkThemeProvider } from '@splunk/themes';
 import { defaultTheme, getThemeOptions } from '@splunk/splunk-utils/themes';
 
-import Modalcomponent from '../src/Modalcomponent';
+import ModalComponent from '../src/ModalComponent';
 
 const themeProviderSettings = getThemeOptions(defaultTheme() || 'enterprise');
 
 const containerEl = document.getElementById('main-component-container');
 render(
     <SplunkThemeProvider {...themeProviderSettings}>
-        <Modalcomponent name="World" />
+        <ModalComponent name="World" />
     </SplunkThemeProvider>,
     containerEl
 );

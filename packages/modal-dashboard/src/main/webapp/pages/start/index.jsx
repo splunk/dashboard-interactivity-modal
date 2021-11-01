@@ -1,7 +1,7 @@
 import React from 'react';
 
 import layout from '@splunk/react-page';
-import Modalcomponent from '@splunk/modalcomponent';
+import ModalComponent from '@splunk/modal-component';
 import { SplunkThemeProvider } from '@splunk/themes';
 
 import { defaultTheme, getThemeOptions } from '@splunk/splunk-utils/themes';
@@ -15,7 +15,7 @@ layout(
         <StyledContainer>
             <StyledGreeting>Hello, from inside ModalDashboard!</StyledGreeting>
             <div>Your component will appear below.</div>
-            <Modalcomponent name="from inside Modalcomponent" />
+            <ModalComponent name="from inside ModalComponent" />
         </StyledContainer>
     </SplunkThemeProvider>
 );

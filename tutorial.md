@@ -1153,7 +1153,7 @@ import Modal from '@splunk/react-ui/Modal';
 
 import DataTable from './DataTable';
 
-const Modalcomponent = ({ handleRequestClose, region, open }) => {
+const ModalComponent = ({ handleRequestClose, region, open }) => {
     return (
         <Modal onRequestClose={handleRequestClose} open={open} style={{ width: '640px' }}>
             <Modal.Header title={`${region} region cheaters`} onRequestClose={handleRequestClose} />
@@ -1166,7 +1166,7 @@ const Modalcomponent = ({ handleRequestClose, region, open }) => {
 
 
 
-export default Modalcomponent;
+export default ModalComponent;
 
 ```
 In this example we are not using a custom visualization so there is no need to introduce the Splunk Visualizations library, instead, we simply make sure that the modal shows the data with a bit of title text that shows the region being clicked on.
@@ -1207,7 +1207,7 @@ import DashboardCore from '@splunk/dashboard-core';
 import { DashboardContextProvider } from '@splunk/dashboard-context';
 import EnterprisePreset from '@splunk/dashboard-presets/EnterprisePreset';
 import SplunkThemeProvider from '@splunk/themes/SplunkThemeProvider';
-import Modalcomponent from '@splunk/modal-component';
+import ModalComponent from '@splunk/modal-component';
 import definition from './definition.json';
 
 const DashboardExample = () => {
@@ -1230,7 +1230,7 @@ const DashboardExample = () => {
     return (
         <SplunkThemeProvider>
             <DashboardContextProvider>
-                <Modalcomponent
+                <ModalComponent
                     open={openModal}
                     region={region}
                     handleRequestClose={handleRequestClose}

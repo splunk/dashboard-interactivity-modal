@@ -4,7 +4,7 @@ const baseComponentConfig = require('@splunk/webpack-configs/component.config').
 
 module.exports = webpackMerge(baseComponentConfig, {
     entry: {
-        Modalcomponent: path.join(__dirname, 'src/Modalcomponent.jsx'),
+        ModalComponent: path.join(__dirname, 'src/ModalComponent.jsx'),
     },
     output: {
         path: path.join(__dirname),
