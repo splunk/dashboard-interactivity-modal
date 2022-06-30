@@ -738,8 +738,9 @@ Since we created a new folder meant for a new dashboard page, we have to make su
 Now that we have the code in place, let's do a test run before we dive into the "custom" portion of this tutorial. Open a new terminal window in VSCode (or use a regular terminal window). We will run a set of commands that will install new dependencies for dashboard related packages, install dependencies that are generated from the `splunk-create` package and build our project.
 
 ```bash
-$ cd dashboardTutorial2 # (if not in project root already)
-$ npm install @splunk/dashboard-core @splunk/dashboard-presets @splunk/dashboard-context
+$ cd dashboardTutorial2/packages/modal-dashboard # (if not in app root already)
+$ yarn add @splunk/dashboard-core @splunk/dashboard-presets @splunk/dashboard-context @splunk/visualization-context
+$ cd ../.. # back to project root
 $ yarn install # to install other dependencies
 $ yarn run build
 ```
