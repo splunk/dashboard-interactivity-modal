@@ -13,12 +13,17 @@
     "start": "webpack --watch",
     "stylelint": "stylelint \"src/**/*.{js,jsx}\" --config stylelint.config.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@splunk/dashboard-context": "^24.8.0",
+    "@splunk/dashboard-core": "^24.8.0",
+    "@splunk/dashboard-presets": "^24.8.0",
+    "@splunk/visualization-context": "^24.6.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.0",
-    "@splunk/modal-component": "^0.0.1",
     "@splunk/babel-preset": "^3.0.0",
     "@splunk/eslint-config": "^4.0.0",
+    "@splunk/modal-component": "^0.0.1",
     "@splunk/react-page": "^5.1.0",
     "@splunk/react-ui": "^4.3.0",
     "@splunk/splunk-utils": "^2.1.0",
