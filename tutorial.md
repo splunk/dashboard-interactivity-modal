@@ -685,15 +685,17 @@ import EnterprisePreset from '@splunk/dashboard-presets/EnterprisePreset';
 import SplunkThemeProvider from '@splunk/themes/SplunkThemeProvider';
 import definition from './definition.json';
 
+// NOTICE: If you are on Dashboard Core versions LOWER than 25.X.X, preset will be a prop for <DashboardCore> instead of 
+// <DashboardContextProvider>
+
 const DashboardExample = () => {
 
     return (
         <SplunkThemeProvider>
-            <DashboardContextProvider>
+            <DashboardContextProvider preset={EnterprisePreset}>
                 <DashboardCore
                     width="100%"
                     height="100%"
-                    preset={EnterprisePreset}
                     definition={definition}
                 />
             </DashboardContextProvider>
@@ -1228,9 +1230,11 @@ const DashboardExample = () => {
         setOpenModal(false);
     };
 
+// NOTICE: If you are on Dashboard Core versions LOWER than 25.X.X, preset will be a prop for <DashboardCore> instead of 
+// <DashboardContextProvider>
     return (
         <SplunkThemeProvider>
-            <DashboardContextProvider>
+            <DashboardContextProvider preset={EnterprisePreset}>
                 <ModalComponent
                     open={openModal}
                     region={region}
@@ -1239,7 +1243,6 @@ const DashboardExample = () => {
                 <DashboardCore
                     width="100%"
                     height="100%"
-                    preset={EnterprisePreset}
                     definition={definition}
                     // Attach a custom event trigger
                     dashboardCorePlugin={{
