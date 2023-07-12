@@ -1206,7 +1206,7 @@ The event handler will then be read in the following `DashboardExample.jsx` code
 ```jsx
 import React, { useState } from 'react';
 
-import DashboardCore from '@splunk/dashboard-core';
+import { DashboardCore } from '@splunk/dashboard-core';
 import { DashboardContextProvider } from '@splunk/dashboard-context';
 import EnterprisePreset from '@splunk/dashboard-presets/EnterprisePreset';
 import SplunkThemeProvider from '@splunk/themes/SplunkThemeProvider';
@@ -1234,7 +1234,14 @@ const DashboardExample = () => {
 // <DashboardContextProvider>
     return (
         <SplunkThemeProvider>
-            <DashboardContextProvider preset={EnterprisePreset}>
+            <DashboardContextProvider 
+				preset={EnterprisePreset} 
+				initialDefinition={definition}
+				// Attach a custom event trigger
+				dashboardPlugin={{
+					onEventTrigger: handleDashboardEvent,
+				}}
+			>
                 <ModalComponent
                     open={openModal}
                     region={region}
@@ -1242,12 +1249,7 @@ const DashboardExample = () => {
                 />
                 <DashboardCore
                     width="100%"
-                    height="100%"
-                    definition={definition}
-                    // Attach a custom event trigger
-                    dashboardCorePlugin={{
-                        onEventTrigger: handleDashboardEvent,
-                    }}
+                    height="100%"             
                 />
             </DashboardContextProvider>
         </SplunkThemeProvider>
